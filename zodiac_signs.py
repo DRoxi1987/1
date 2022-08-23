@@ -2,33 +2,15 @@ import datetime
 
 
 def printsigns(signs: str) -> None:
+
     """ Выводит на экран ответ в формате: Ваш знак Зодиака: ..."""
+
     print(f"Ваш знак Зодиака: {signs}.")
-
-
-def main() -> None:
-    print("Введите дату рождения: день/месяц/год")
-
-    # Получаем строку от пользователя в формате "день/месяц/год" и переводим в
-    # datetime.
-
-    birthday = input()
-
-    try:
-        birthday_datetime = datetime.datetime.strptime(birthday, '%d/%m/%Y').date()
-        sign_finding(birthday_datetime)
-    except ValueError:
-        print("Введите верную дату")
-        main()
-    except AttributeError:
-        print("Введите верную дату")
-        main()
-
-
-    # Списки для каждого знака в формате datetime.date. [дата начала знака, Дата конца знака]
 
 def sign_finding(birthday_datetime):
 
+    """ Сравнивает объект Datetime с интервалами времени, соответствующими
+    определенному знаку."""
 
     capricorn1 = [datetime.date(birthday_datetime.year, 12, 22),
                   datetime.date(birthday_datetime.year, 12, 31)]
@@ -111,7 +93,43 @@ def sign_finding(birthday_datetime):
         printsigns("Скорпион")
 
 
+def main() -> None:
+
+    """ Получаем строку от пользователя в формате "день/месяц/год".
+     Проверяем ошибки ввода пользователя. Проверяем является ли год високосным. 
+     После проверок переводим строку в объект Datetime """
+
+    print("Введите дату рождения: день/месяц/год\n")
+    birthday = input()
+
+    try:
+        birthday_datetime = datetime.datetime.strptime(birthday, '%d/%m/%Y').date()
+        sign_finding(birthday_datetime)
+    except ValueError:
+        print("Введите верную дату\n")
+        main()
+    except AttributeError:
+        print("Введите верную дату\n")
+        main()
+
+    """ Реализация выхода из программы по нажатию y или n. """
+
+    print("Выйти из программы y/n?\n")
+    exit_function = input()
+
+    if exit_function == "n":
+        main()
+    elif exit_function == "y":
+        raise SystemExit
+
+
+
+
+
 if __name__ == '__main__':
     main()
-    print("Нажмите Enter для выхода из программы")
-    input()
+
+
+
+
+
