@@ -8,19 +8,27 @@ def printsigns(signs: str) -> None:
 
 def main() -> None:
     print("Введите дату рождения: день/месяц/год")
-    birthday = input()
 
-    if 0 <= int(birthday.split("/")[1]) <= 12:
-        global birthday_datetime
-        birthday_datetime = datetime.datetime.strptime(birthday,
-                                                       '%d/%m/%Y').date()
-    else:
-        print("Введите правильную дату")
-        main()
     # Получаем строку от пользователя в формате "день/месяц/год" и переводим в
     # datetime.
 
+    birthday = input()
+
+    try:
+        birthday_datetime = datetime.datetime.strptime(birthday, '%d/%m/%Y').date()
+        sign_finding(birthday_datetime)
+    except ValueError:
+        print("Введите верную дату")
+        main()
+    except AttributeError:
+        print("Введите верную дату")
+        main()
+
+
     # Списки для каждого знака в формате datetime.date. [дата начала знака, Дата конца знака]
+
+def sign_finding(birthday_datetime):
+
 
     capricorn1 = [datetime.date(birthday_datetime.year, 12, 22),
                   datetime.date(birthday_datetime.year, 12, 31)]
